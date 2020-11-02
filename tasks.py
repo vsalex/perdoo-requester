@@ -10,6 +10,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from django.db import transaction
 from django.utils import timezone
 
+# Must use this imports to run initialize Django before import actual models:
 os.environ["DJANGO_SETTINGS_MODULE"] = "requester.settings"
 django.setup()
 
@@ -30,6 +31,10 @@ logger = logging.getLogger(__name__)
 
 @scheduler.scheduled_job('interval', seconds=3)
 def send_requests():
+    """
+    Sends requests whose sending time is less than or equal to the current time.
+    """
+
     logger.info('Started task send_requests')
 
     started = timezone.now()

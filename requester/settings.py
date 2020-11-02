@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -27,7 +27,7 @@ SECRET_KEY = '4i92j4-$zvb2^@3@gx9$rus*$1htv^q2&4d#&77^ij1cf6ev!0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -76,13 +76,15 @@ TEMPLATES = [
 WSGI_APPLICATION = 'requester.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd6ej1lkc4535q1',
+        'USER': 'clkcykxwzpdcyu',
+        'PASSWORD': 'd6d30f029763c870b719e4103dc0b2b7fdb529a56c1b8680331d3f3c13543e2c',
+        'HOST': 'ec2-35-168-77-215.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'CONN_MAX_AGE': 0,
     }
 }
 
@@ -119,9 +121,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 STATIC_URL = '/static/'
 
@@ -131,7 +132,7 @@ LOGGING = {
     'formatters': {
         'verbose': {
             'format':
-                '%(asctime)s - %(levelname)s - %(name)s - '
+                '%(asctime)s - %(levelname)s - '
                 '%(filename)s:%(lineno)s :: %(message)s'
         }
     },
@@ -146,3 +147,5 @@ LOGGING = {
         'level': 'INFO',
     },
 }
+
+
